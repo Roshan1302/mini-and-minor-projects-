@@ -1,28 +1,30 @@
 
-module apb_master_for_csr( 
+module apb_master_for_csr#(parameter ADDR_WIDTH = 16, 
+                                     DATA_WIDTH = 32
+                                     )( 
     input logic prstn, 
     input logic pclk,
     
-    input  logic [7:0] trf_addr,
-    input  logic [7:0] trf_wdata, 
+    input  logic [ADDR_WIDTH-1:0] trf_addr,
+    input  logic [DATA_WIDTH-1:0] trf_wdata, 
     input  logic       trf_valid, 
     output logic       trf_rdata_valid,	
-    output logic [7:0]trf_rdata,
+    output logic [DATA_WIDTH-1:0]trf_rdata,
     input  logic [1:0]trf_enc, // trf_enc:tracsfer_encod 2'b10 -read ,2'b01wr
     
-    input  logic [7:0]prdata,
+    input  logic [DATA_WIDTH-1:0]prdata,
     input  logic      pready,
     input  logic      pslverr,
-    output logic [7:0]paddr,
+    output logic [ADDR_WIDTH-1:0]paddr,
     output logic      pwrite,
-    output logic [7:0]pwdata,
+    output logic [DATA_WIDTH-1:0]pwdata,
     output logic      psel,
     output logic      penable
     );
 
-parameter IDLE = 2'b01,
-          SETUP = 2'b10,
-          ACCESS = 2'b11;
+localparam IDLE = 2'b01,
+           SETUP = 2'b10,
+           ACCESS = 2'b11;
 reg [1:0] cs, ns;
 wire valid ;
 assign valid = trf_valid &&(trf_enc==2'b01||trf_enc==2'b10);
