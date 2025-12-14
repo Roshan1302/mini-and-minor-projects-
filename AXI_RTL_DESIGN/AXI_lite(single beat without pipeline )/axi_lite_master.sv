@@ -21,7 +21,7 @@
 
 
 //module axi_lite_master (
-////////////////addr channel ///////////////////////////
+////////////////input to top module  ///////////////////////////
 //  input   clk,
 //  input   resetn,
 //  input   wr,
