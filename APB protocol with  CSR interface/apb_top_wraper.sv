@@ -53,7 +53,7 @@ module apb_top_wrapper #(parameter
 
     CSR slave(
     .pclk(pclk), 
-    .preset_n(preset_n), 
+                .preset_n(prstn), 
     .psel(psel), 
     .penable(penable), 
     .pwrite(pwrite), 
